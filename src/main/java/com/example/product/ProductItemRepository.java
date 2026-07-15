@@ -1,0 +1,11 @@
+package com.example.product;
+
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.repository.PagingAndSortingRepository;
+
+interface ProductItemRepository extends PagingAndSortingRepository<ProductItem, Long> {
+
+    Slice<ProductItem> findByNameContainingIgnoreCase(String name, Pageable pageable);
+
+}
