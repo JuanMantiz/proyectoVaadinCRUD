@@ -17,7 +17,7 @@ public class ProductDetails {
     private String category;
     private String brand;
     private String sku;
-    private LocalDate realeaseDate;
+    private LocalDate releaseDate;
     private BigDecimal price;
     private BigDecimal discount;
 
@@ -29,11 +29,11 @@ public class ProductDetails {
         return productId;
     }
 
-    public String getdescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setdescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -61,12 +61,12 @@ public class ProductDetails {
         this.sku = sku;
     }
 
-    public LocalDate getRealeaseDate() {
-        return realeaseDate;
+    public LocalDate getReleaseDate() {
+        return releaseDate;
     }
 
-    public void setRealeaseDate(LocalDate realeaseDate) {
-        this.realeaseDate = realeaseDate;
+    public void setReleaseDate(LocalDate releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public BigDecimal getPrice() {

@@ -13,7 +13,7 @@ import com.vaadin.flow.router.Route;
 @PageTitle("Product Catalog")
 public class ProductView extends HorizontalLayout {
 
-    public ProductView(ProductItemRepository repository) {
+    public ProductView(ProductItemRepository repository, ProductDetailsRepository productDetailsRepository) {
 
         var searchField = new TextField();
         searchField.setPlaceholder("Search");
@@ -36,6 +36,13 @@ public class ProductView extends HorizontalLayout {
 
         searchField.addValueChangeListener(e -> grid.getDataProvider().refreshAll());
 
+        grid.addSelectionListener(event -> {
+            var productDetails = event.getFirstSelectedItem()
+                    .flatMap(item -> productDetailsRepository.findById(item.productId()))
+                    .orElse(null);
+            drawer.setProductDetails(productDetails);
+
+        });
         //layout view
         setSizeFull();
         setSpacing(false);
