@@ -30,4 +30,9 @@ public class ProductService {
     public ProductDetails save(ProductDetails productDetails) {
         return productDetailsRepository.save(new ProductDetails(productDetails));
     }
+
+    @Transactional
+    public void delete(Long productId) {
+        productDetailsRepository.deleteById(productId);
+    }
 }

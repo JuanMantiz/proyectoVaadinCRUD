@@ -9,7 +9,7 @@ import java.awt.*;
 public class AddProductDialog extends Dialog {
     @FunctionalInterface
     interface SaveCallback {
-        void save(ProductDetails productDetails);
+        ProductDetails save(ProductDetails productDetails);
     }
     @FunctionalInterface
     interface ErrorCallback {

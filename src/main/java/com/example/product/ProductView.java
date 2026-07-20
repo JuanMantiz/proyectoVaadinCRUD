@@ -36,11 +36,20 @@ public class ProductView extends HorizontalLayout {
                 .findItems(searchField.getValue(), pageable)
 );
 
-        var drawer = new ProductFormDrawer(productDetails -> {
+        var drawer = new ProductFormDrawer (
+                productDetails -> {
             var saved = service.save(productDetails);
             grid.getDataProvider().refreshAll();
+            showSuccessNotification("Product updated successfully.");
             return saved;
-        }, this::handleException);
+        },
+                this::handleException,
+        productDetails -> {
+            service.delete(productDetails.getProductId());
+            grid.deselectAll();
+            grid.getDataProvider().refreshAll();
+            showSuccessNotification("Product deleted successfully.");
+        });
 
         searchField.addValueChangeListener(e -> grid.getDataProvider().refreshAll());
 
@@ -58,6 +67,7 @@ public class ProductView extends HorizontalLayout {
                     grid.getDataProvider().refreshAll();
                     service.findItemById(saved.getProductId())
                             .ifPresent(grid::select);
+                    return saved;
         },
         this::handleException
 ).open()
@@ -97,5 +107,10 @@ public class ProductView extends HorizontalLayout {
 // Delegate to Vaadin&#39;s default error handler
             throw exception;
         }
+    }
+    private void showSuccessNotification(String message) {
+        Notification notification = new Notification(message, 3000, Notification.Position.TOP_END);
+        notification.addThemeVariants(NotificationVariant.SUCCESS);
+        notification.open();
     }
 }

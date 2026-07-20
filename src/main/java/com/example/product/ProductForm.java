@@ -13,6 +13,7 @@ import java.util.Optional;
 public class ProductForm extends Composite<FormLayout> {
 
     private final Binder<ProductDetails> binder;
+    private ProductDetails currentProduct;
     ProductForm() {
         //Componentes
         var nameField = new TextField("Name");
@@ -21,13 +22,13 @@ public class ProductForm extends Composite<FormLayout> {
         var brandField = new TextField("Brand");
         var skuField = new TextField("Sku");
         var releaseDateField = new DatePicker("Release Date");
-        var priceField = new BigDecimalField("Release Date");
+        var priceField = new BigDecimalField("Price");
         var discountField = new BigDecimalField("Discount");
 
 
         //Layout del form
         var layout = getContent();
-        layout.add(nameField,descriptionField,categoryField,brandField,releaseDateField,priceField,discountField);
+        layout.add(nameField,descriptionField,categoryField,brandField,releaseDateField,priceField,discountField, skuField);
 
         //Vincular campos
         binder = new Binder<>();
@@ -57,17 +58,44 @@ public class ProductForm extends Composite<FormLayout> {
     }
 
     public void setFormDataObject(@Nullable ProductDetails productDetails){
-        binder.setBean(productDetails);
+        // 💡 Ahora sí podemos usar la variable aquí
+        this.currentProduct = productDetails;
+        if (productDetails != null) {
+            binder.readBean(productDetails);
+        } else {
+            binder.readBean(new ProductDetails());
+        }
     }
 
     public Optional<ProductDetails> getFormDataObject() {
-        if (binder.getBean() == null) {
-            throw new IllegalStateException("No form data object");
+        if (currentProduct == null) {
+            System.out.println("❌ ERROR: currentProduct es NULL en el formulario.");
+            return Optional.empty();
         }
-        if (binder.validate().isOk()) {
 
-            return Optional.of(binder.getBean());
-        } else {
+        // 1. Forzamos una validación manual antes de escribir
+        var validation = binder.validate();
+        if (!validation.isOk()) {
+            System.out.println("⚠️ EL BINDER TIENE ERRORES DE VALIDACIÓN:");
+            validation.getFieldValidationErrors().forEach(error -> {
+                System.out.println("   - Campo con error: " + error.getField().toString());
+                System.out.println("   - Mensaje: " + error.getMessage().orElse("Sin mensaje"));
+            });
+            return Optional.empty();
+        }
+
+        try {
+            System.out.println("🔄 Intentando transferir datos al objeto con writeBean...");
+            binder.writeBean(currentProduct);
+            System.out.println("✅ Datos transferidos con éxito para: " + currentProduct.getName());
+            return Optional.of(currentProduct);
+        } catch (com.vaadin.flow.data.binder.ValidationException e) {
+            System.out.println("❌ Error de Validación en writeBean (Campos incorrectos)");
+            return Optional.empty();
+        } catch (Exception e) {
+            // 🚨 SI HAY UN ERROR DE TIPOS (Ej: Conversión de fechas/números), AQUÍ LO VERÁS
+            System.out.println("💥 ERROR CRÍTICO DEL SISTEMA AL GUARDAR:");
+            e.printStackTrace();
             return Optional.empty();
         }
     }
