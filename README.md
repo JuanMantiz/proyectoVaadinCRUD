@@ -1,86 +1,73 @@
-# My Application
+# 📦 Product Catalog Management System
 
-A Spring Boot + Vaadin project. Build your UI in pure Java — no HTML, no JavaScript.
+A robust and responsive CRUD application for managing a product catalog, built with **Java, Spring Boot, and Vaadin**.
 
-> **New to Vaadin?** The 5-minute [Quickstart](https://vaadin.com/quickstart) walks you from here to your first running app, a live code change, and an AI-assisted edit with Copilot.
+## 🎓 Academic Context
 
----
+This repository contains the learning outcomes (Resultado de Aprendizaje) for the **Object-Oriented Programming** course. It was developed as part of the **Desarrollo de Software Multiplataforma** degree at **Universidad Tecnológica del Sureste de Veracruz**.
 
-## Fastest start — no plugin needed
+The development of this project was guided and supervised by the course professor to demonstrate the practical application of OOP principles, modern UI integration, and relational database management.
 
-From the project folder:
+## 🎥 Demo
 
-```bash
-./mvnw spring-boot:run        # Windows: mvnw.cmd spring-boot:run
-```
+<!-- Replace 'Screencast.webm' with the actual extension of your video if different -->
+<video src="assets/Screencast.webm" controls="controls" width="100%">
+  Your browser does not support the video tag. 
+  <a href="assets/Screencast.webm">Click here to download and watch the demo video</a>
+</video>
+*Demonstration of the product catalog functionality.*
 
-No system Maven required — the wrapper is included. Then open **http://localhost:8080**.
+## 📸 Screenshots
 
-The first start takes ~30 seconds while Maven downloads dependencies. You'll get a runnable **Task List** app: a data grid (Description / Due Date / Creation Date), a Create button, and an empty-state message. When you see that, you're running.
+<!-- Ensure you change 'captura-1.png', etc. to the actual names of your image files -->
+![Main Catalog View](assets/captura1.png)
+*Main grid view of products featuring real-time search functionality.*
 
-> **Port 8080 already in use?** Stop the other process, or set `server.port=8081` in `src/main/resources/application.properties` and open that port instead.
->
-> **To stop the app:** press `Ctrl+C` in the terminal (or the red Stop button if you launched from your IDE).
+![Add Product Form](assets/captura2.png)
+*Pop-up dialog containing the form for registering a new product.*
 
-## Optional upgrade — instant hotswap
+![Successfully Added Product](assets/captura3.png)
+*Visual confirmation showing the newly added product successfully integrated and visible within the catalog.*
 
-Running with `spring-boot:run` works, but Java code changes need a restart. For **live reload** — edit Java, see it in the browser without restarting — install the **Vaadin plugin** and start the app through it:
+## ✨ Features
 
-- **IntelliJ IDEA:** install *Vaadin* from the JetBrains Marketplace → **Debug using Hotswap Agent** (dropdown next to Run). *Just installed it? Let IntelliJ finish indexing, or restart it, if the menu item isn't there yet.*
-- **VS Code:** install the *Vaadin* extension → **Vaadin: Debug using Hotswap Agent** from the command palette.
-- **Eclipse:** install the *Vaadin* plugin → right-click the project → **Run As → Vaadin Application**.
+- **Full CRUD Operations**: Create, Read, Update, and Delete products seamlessly.
+- **Real-time Search & Filtering**: Instantly filter catalog items by name.
+- **Robust Data Validation**: Built-in error handling for duplicate SKUs and missing required fields.
+- **Optimistic Locking**: Prevents data overwriting conflicts when multiple sessions edit the same product.
+- **Responsive UI**: Modern, accessible interface powered by Vaadin Flow and Lumo styling.
 
-This is what makes the edit-and-see-it loop feel instant — and it's required for the AI edits in [Vaadin Copilot](https://vaadin.com/docs/latest/tools/copilot).
+## 🛠️ Tech Stack
 
----
+- **Backend**: Java, Spring Boot, Spring Data (JDBC/R2DBC)
+- **Frontend**: Vaadin Flow
+- **Database**: SQL (Pre-configured schema and seed data)
+- **Environment**: Developed and tested on Linux (Fedora)
 
-## Day 2: make your task list interactive (~10 min)
+## 🚀 Getting Started
 
-Your app lists tasks. Let's make a row do something when you click it.
+### Prerequisites
+- Java 17 or higher
+- Maven
+- IntelliJ IDEA (or your preferred IDE)
 
-**1. Add a click listener (by hand).** In `src/main/java/com/example/examplefeature/ui/TaskListView.java`, add this after the `taskGrid.addColumn(...)` block:
+### Running the Application
 
-```java
-taskGrid.addItemClickListener(event ->
-    Notification.show("Due: " + Optional.ofNullable(event.getItem().getDueDate())
-        .map(LocalDate::toString)
-        .orElse("no due date")));
-```
+1. Clone this repository to your local machine:
+   ```bash
+   git clone <your-repo-url>
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd <your-project-directory>
+   ```
+3. Run the application using Maven:
+   ```bash
+   mvn spring-boot:run
+   ```
+4. Open your browser and navigate to `http://localhost:8080`.
 
-Add the import: `import com.vaadin.flow.component.notification.Notification;`
+## 👨‍💻 Contributors
 
-Save and click a task — a notification shows its due date. That's a server-side event handler, in pure Java.
-
-**2. Let Copilot finish it.** Open Copilot (bottom-right toolbar → **Edit mode**), click the AI assistant, and try:
-
-> When a task row is clicked, open a dialog showing its description, due date, and creation date, with a Close button.
-
-Copilot writes the dialog into `TaskListView.java` for you. Open the file — your new code is right there.
-
----
-
-## Ask your AI assistant about Vaadin (optional)
-
-If you use Claude Code, Cursor, or another AI coding assistant, connect it to the **Vaadin MCP server** so it answers against real Vaadin docs and the exact API of your installed version — instead of guessing from outdated training data.
-
-```bash
-# One-time setup — see https://vaadin.com/docs/latest/building-apps/mcp
-```
-
-A `.mcp.json` is included (commented out by default). Uncomment it, or run the setup command above, to activate.
-
----
-
-## Build for production
-
-```bash
-./mvnw package
-java -jar target/*.jar
-```
-
-## Learn more
-
-- [Vaadin Quickstart](https://vaadin.com/quickstart) — the 5-minute getting-started path
-- [Components](https://vaadin.com/docs/latest/components) — 50+ UI components, all callable from Java
-- [Vaadin Copilot](https://vaadin.com/docs/latest/tools/copilot) — visual + AI editing in the browser
-- [Full documentation](https://vaadin.com/docs)
+- **Juan Carlos García Flores** - *Student Developer*
+- Developed under the guidance of the course professor.

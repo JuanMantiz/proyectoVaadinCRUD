@@ -102,6 +102,7 @@ public class ProductView extends HorizontalLayout {
             notification.setPosition(Notification.Position.MIDDLE);
             notification.addThemeVariants(NotificationVariant.WARNING);
             notification.setDuration(3000);
+            notification.open();
 
         } else {
 // Delegate to Vaadin&#39;s default error handler
