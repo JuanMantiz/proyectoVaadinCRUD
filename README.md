@@ -8,14 +8,6 @@ This repository contains the learning outcomes (Resultado de Aprendizaje) for th
 
 The development of this project was guided and supervised by the course professor to demonstrate the practical application of OOP principles, modern UI integration, and relational database management.
 
-## 🎥 Demo
-
-<!-- Replace 'Screencast.webm' with the actual extension of your video if different -->
-<video src="assets/Screencast.webm" controls="controls" width="100%">
-  Your browser does not support the video tag. 
-  <a href="assets/Screencast.webm">Click here to download and watch the demo video</a>
-</video>
-*Demonstration of the product catalog functionality.*
 
 ## 📸 Screenshots
 
