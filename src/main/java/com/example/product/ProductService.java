@@ -7,32 +7,31 @@ import java.util.Optional;
 
 @Service
 public class ProductService {
-    private final ProductItemRepository productCatalogItemRepository;
-    private final ProductDetailsRepository productDetailsRepository;
-    public ProductService(
-            ProductItemRepository productCatalogItemRepository,
-            ProductDetailsRepository productDetailsRepository) {
-        this.productCatalogItemRepository = productCatalogItemRepository;
-        this.productDetailsRepository = productDetailsRepository;
+
+    private final ProductRepository productRepository;
+
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
-    public List<ProductItem> findItems(String searchTerm,
+
+    public List<ProductDetails> findItems(String searchTerm,
                                                     Pageable pageable) {
-        return productCatalogItemRepository
+        return productRepository
                 .findByNameContainingIgnoreCase(searchTerm, pageable).getContent();
     }
     public Optional<ProductDetails> findDetailsById(Long id) {
-        return productDetailsRepository.findById(id);
+        return productRepository.findById(id);
     }
-    public Optional<ProductItem> findItemById(Long id) {
-        return productCatalogItemRepository.findById(id);
+    public Optional<ProductDetails> findItemById(Long id) {
+        return productRepository.findById(id);
     }
     @Transactional
     public ProductDetails save(ProductDetails productDetails) {
-        return productDetailsRepository.save(new ProductDetails(productDetails));
+        return productRepository.save(new ProductDetails(productDetails));
     }
 
     @Transactional
     public void delete(Long productId) {
-        productDetailsRepository.deleteById(productId);
+        productRepository.deleteById(productId);
     }
 }
