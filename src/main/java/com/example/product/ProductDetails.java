@@ -1,6 +1,7 @@
 package com.example.product;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Version;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.math.BigDecimal;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 public class ProductDetails {
     @Id
     private Long productId;
+    @Version
     private Long version;
     private String description;
     private String name;
