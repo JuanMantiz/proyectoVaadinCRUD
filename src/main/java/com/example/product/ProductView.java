@@ -24,13 +24,13 @@ public class ProductView extends HorizontalLayout {
         searchField.setPlaceholder("Search");
         searchField.setPrefixComponent(VaadinIcon.SEARCH.create());
         searchField.setValueChangeMode(ValueChangeMode.LAZY);
-        var grid = new Grid<ProductItem>();
+        var grid = new Grid<ProductDetails>();
 
-        grid.addColumn(ProductItem::name).setHeader("Name").setSortProperty(ProductItem.SORT_PROPERTY_NAME);
-        grid.addColumn(ProductItem::price).setHeader("Price").setSortProperty(ProductItem.SORT_PROPERTY_PRICE);
-        grid.addColumn(ProductItem::description).setHeader("Description").setSortProperty(ProductItem.SORT_PROPERTY_DESCRIPTION);
-        grid.addColumn(ProductItem::category).setHeader("Category").setSortProperty(ProductItem.SORT_PROPERTY_CATEGORY);
-        grid.addColumn(ProductItem::brand).setHeader("Brand").setSortProperty(ProductItem.SORT_PROPERTY_BRAND);
+        grid.addColumn(ProductDetails::getName).setHeader("Name").setSortProperty(ProductDetails.SORT_PROPERTY_NAME);
+        grid.addColumn(ProductDetails::getPrice).setHeader("Price").setSortProperty(ProductDetails.SORT_PROPERTY_PRICE);
+        grid.addColumn(ProductDetails::getDescription).setHeader("Description").setSortProperty(ProductDetails.SORT_PROPERTY_DESCRIPTION);
+        grid.addColumn(ProductDetails::getCategory).setHeader("Category").setSortProperty(ProductDetails.SORT_PROPERTY_CATEGORY);
+        grid.addColumn(ProductDetails::getBrand).setHeader("Brand").setSortProperty(ProductDetails.SORT_PROPERTY_BRAND);
 
         grid.setItemsPageable(pageable -> service
                 .findItems(searchField.getValue(), pageable)
@@ -55,7 +55,7 @@ public class ProductView extends HorizontalLayout {
 
         grid.addSelectionListener(event -> {
             var productDetails = event.getFirstSelectedItem()
-                    .flatMap(item -> service.findDetailsById(item.productId()))
+                    .flatMap(item -> service.findById(item.getProductId()))
                              .orElse(null);
             drawer.setProductDetails(productDetails);
 
@@ -65,7 +65,7 @@ public class ProductView extends HorizontalLayout {
                 productDetails -> {
                     var saved = service.save(productDetails);
                     grid.getDataProvider().refreshAll();
-                    service.findItemById(saved.getProductId())
+                    service.findById(saved.getProductId())
                             .ifPresent(grid::select);
                     return saved;
         },

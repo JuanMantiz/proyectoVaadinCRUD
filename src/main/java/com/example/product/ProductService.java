@@ -19,10 +19,7 @@ public class ProductService {
         return productRepository
                 .findByNameContainingIgnoreCase(searchTerm, pageable).getContent();
     }
-    public Optional<ProductDetails> findDetailsById(Long id) {
-        return productRepository.findById(id);
-    }
-    public Optional<ProductDetails> findItemById(Long id) {
+    public Optional<ProductDetails> findById(Long id) {
         return productRepository.findById(id);
     }
     @Transactional
