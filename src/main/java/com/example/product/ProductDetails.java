@@ -1,16 +1,22 @@
 package com.example.product;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Table;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Version;
-import org.springframework.data.relational.core.mapping.Table;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-//FDO Form Data Object
+import java.util.Objects;
 
-@Table("PRODUCTS")
+
+@Entity
+@Table(name = "products")
 public class ProductDetails {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
     @Version
     private Long version;
@@ -107,5 +113,22 @@ public class ProductDetails {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    static final String SORT_PROPERTY_NAME = "name";
+    static final String SORT_PROPERTY_PRICE = "price";
+    static final String SORT_PROPERTY_DESCRIPTION = "description";
+    static final String SORT_PROPERTY_CATEGORY = "category";
+    static final String SORT_PROPERTY_BRAND = "brand";
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductDetails that = (ProductDetails) o;
+        return productId == that.productId;
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(productId);
     }
 }
